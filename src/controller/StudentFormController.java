@@ -5,10 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Student;
 import util.CrudUtil;
@@ -30,8 +27,8 @@ public class StudentFormController {
     public TableColumn colStudentName;
     public TableColumn colStudentID;
     public TableView tblStudent;
-
-
+    public MenuItem Update;
+    public MenuItem Delete;
 
 
     public void initialize(){
@@ -75,7 +72,7 @@ public class StudentFormController {
 
 
 
-    public void btnAddStudentOnAction(ActionEvent actionEvent) {
+    public void btnAddStudentOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
         Student stu = new Student(
                 txtStudentId.getText(),txtStudentName.getText(), txtEmail.getText(),txtContact.getText(),txtAddress.getText(),txtNIC.getText()
@@ -89,8 +86,38 @@ public class StudentFormController {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+        loadAllStudent();
     }
 
 
+    public void menuUpdateOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        Student selectedItem = (Student) tblStudent.getSelectionModel().getSelectedItem();
+
+        txtStudentId.setText(selectedItem.getId());
+        txtStudentName.setText(selectedItem.getName());
+        txtEmail.setText(selectedItem.getEmail());
+       txtContact.setText(selectedItem.getContact());
+        txtAddress.setText(selectedItem.getAddress());
+        txtNIC.setText(selectedItem.getNic());
+
+        loadAllStudent();
+
+
+
+
     }
+    public void menuDeleteOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        Student selectedItem = (Student) tblStudent.getSelectionModel().getSelectedItem();
+
+        if (CrudUtil.execute("DELETE FROM Student WHERE student_id = ?",selectedItem.getId())){
+            new Alert(Alert.AlertType.CONFIRMATION,"Deleted.").show();
+
+        }else{
+            new Alert(Alert.AlertType.WARNING,"Try Again!").show();
+        }    }
+   
+
+
+    }
+
 
