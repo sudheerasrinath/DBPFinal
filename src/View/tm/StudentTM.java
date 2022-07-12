@@ -1,7 +1,6 @@
-package model;
+package View.tm;
 
-public class Student {
-
+public class StudentTM {
     private String id;
     private String name;
     private String email;
@@ -9,7 +8,7 @@ public class Student {
     private String address;
     private String nic;
 
-    public Student(String id, String name, String email, String contact, String address, String nic) {
+    public StudentTM(String id, String name, String email, String contact, String address, String nic) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -18,7 +17,7 @@ public class Student {
         this.nic = nic;
     }
 
-    public Student() {
+    public StudentTM() {
     }
 
     public String getId() {
@@ -71,7 +70,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "StudentTM{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
